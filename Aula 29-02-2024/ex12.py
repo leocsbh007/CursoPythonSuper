@@ -16,6 +16,28 @@ tupla_competição = (('Equipe Raiz', [5, 10, 7, 9, 8]), ('Equipe Bola de Ouro',
                     ('Equipe Fedora', [10, 8, 4, 9, 10]), ('Equipe Red Hat', [3, 10, 10, 10, 4]),
                     ('Equipe Bala de Prata', [2, 4, 10, 10, 3]),('Equipe Espelho', [10, 10, 10, 9, 8]))
 lista_medias = []
-for equipe, media in tupla_competição:
-    for nota in range(0, len(media)):
-        print(media[nota], end=' ')
+media_pontos = 0
+count = 0
+
+# Varre a Tupla para buscar as listas de pontos de cada equipe
+for equipe, media in tupla_competição:   
+    # Calcula a media de pontuação de cada equipe e insere em um lista 
+    for nota in range(0, len(media)):        
+        #print(media[nota], end=' ')
+        media_pontos = media_pontos + media[nota]
+        count = count + 1
+        if count == len(media):
+            count = 0
+            media_pontos = media_pontos/len(media)            
+            lista_medias.append(round(media_pontos,2))
+            
+
+    #print(lista_medias)
+    #print(equipe)
+    equipes = (equipe, media_pontos)
+
+print(equipes)
+# Coloca a lista em ordem decrescente
+#lista_medias.sort(reverse=True)
+
+#print(lista_medias)

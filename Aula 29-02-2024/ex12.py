@@ -33,32 +33,12 @@ for equipe, media in tupla_competição:
             media_pontos = media_pontos/len(media)            
             lista_medias.append(round(media_pontos,2))
     # Cria uma lista com o time e sua media de pontos      
-    lista_classificação.append((equipe,round(media_pontos,2)))
+    lista_classificação.append((round(media_pontos,2), equipe))
     
-    #print(lista_medias)
-    #print(equipe)
-    #equipes = (equipe, media_pontos)
-count = 0
-#print(equipes)
-#print(lista_classificação)
-classificação = lista_classificação[0][1]
-print(classificação)
-for equipe_media in lista_classificação:
-    #print(lista_classificação[count][1])
-    #print(equipe_media[1])
-    count = count + 1
-    temp = lista_classificação[count][1]
-    if classificação > temp:
-        print(lista_classificação_decrescente, lista_classificação)
-    # print(equipe_media[0])
-    # for nota in range(0,len(equipe_media)):
-    #     count=count+1
-        #print(equipe_media[nota])
-    #print(nota)
-    # if equipe_media[nota] > 0:
-    #     print(equipe_media[nota])
-        
-    #print(equipe_media)
+sorted(lista_classificação, reverse=True)
+for equipe in range(len(lista_classificação)):
+    print(equipe)
+
 
 # Coloca a lista em ordem decrescente
 #lista_medias.sort(reverse=True)

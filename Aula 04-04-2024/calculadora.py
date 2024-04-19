@@ -23,3 +23,6 @@ def divisao(num1 : int, num2 : int) -> int:
         resultado = num1 / num2
         return resultado
 
+bola = 10
+metal = 20
+

@@ -14,66 +14,43 @@ Lembre Se de Modularizar o código
 '''
 def AdicionarAluno(nome:str, matricula:int):
     # Verifica se este aluno já esta cadastrado
-    for a in alunos:
-        for v in a.values():
-            if v == matricula:
-                print("Já existe matricula cadastrada")
-                del alunos[v-1]
-                break
-    
-    aluno["Matricula"] = matricula
-    aluno["Nome"] = nome
-    alunos.append(aluno.copy())
-
-def RemoverAluno(matricula:int):
-    # Variavel de controle para verificar se existe aluno na base de dados
-    flag_aluno = True
-    if len(alunos) == 0:
-        print("Não existe nenhum aluno cadastrado")        
+    if matricula in alunos.keys():        
+        print("Já existe matricula cadastrada")        
     else:
-        for a in alunos:
-            for v in a.values():
-                if v == matricula:
-                    del alunos[v-1]
-                    # "Suja a flag" para não informar que já tem aluno na base de dados
-                    flag_aluno = False
-                    break
-    # Verifica de a flag esta "Suja"
-    if flag_aluno:
-        print("Não existe este aluno na Base de Dados")
+        aluno["Nome"] = nome
+        alunos[matricula] = aluno.copy()
+
+
+def RemoverAluno(matricula:int):    
+    # Verifica se existe aluno cadastrado
+    if matricula in alunos.keys():        
+        alunos.pop(matricula)
+    else:
+        print("Não existe matricula cadastrada")
     
 
 def AtualizarAluno(matricula:int, nome:str):
-    # Variavel de controle para verificar se existe aluno na base de dados
-    flag_aluno = True
-    if len(alunos) == 0:
-        print("Não existe nenhum aluno cadastrado")   
-    
+    # Verifica se existe aluno cadastrado
+    if matricula in alunos.keys():        
+        alunos[matricula]["Nome"] = nome
     else:
-        for a in alunos:
-            for v in a.values():
-                if v == matricula:
-                    alunos[v-1]['Nome'] = nome
-                    # "Suja a flag" para não informar que já tem aluno na base de dados
-                    flag_aluno = False
-                    break
-    # Verifica de a flag esta "Suja"
-    if flag_aluno:
-        print("Não existe este aluno na Base de Dados")
+        print("Não existe matricula cadastrada")
 
-def VerAlunos(alunos:list):
+def VerAlunos(alunos:dict):
+    # Verifica se existe aluno cadastrado
     if len(alunos) == 0:
         print("Não existe nenhum aluno cadastrado")  
     else:
-        for a in alunos:
-            print("="*20)
-            for k, v in a.items():
-                print(f"{k} : {v}")
-        
-alunos = []
+        print('Matricula || Nome')
+        for matricula, aluno in alunos.items():
+            print(f'{matricula}         || {aluno["Nome"]}')
+
+# Variaveis do Sistema
+alunos = {}
 aluno = {}
 controle = True
 
+# Loop Principal
 while controle:
     print("""
             ADICIONAR ALUNO     ( 1 )
@@ -84,25 +61,43 @@ while controle:
           """)
     opcao = input("Digite a Opção: ")
 
-    match opcao:
+    match opcao:        
         case '1':
             print("Inserindo Aluno")
-            nome = str(input("Nome do Aluno: ")).strip()
-            matricula = int(input("Matricula do Aluno: "))            
-            AdicionarAluno(nome, matricula)
+            try:
+                nome = str(input("Nome do Aluno: ")).strip()
+                matricula = int(input("Matricula do Aluno: "))      
+            except ValueError:
+                print("Erro: Matricula deve ser um número inteiro válido.")
+            except Exception as e:
+                print(f"Erro inesperado: {e}")
+            else:
+                AdicionarAluno(nome, matricula)
+            
         case '2':
             print("Listando Alunos")
             VerAlunos(alunos)
         case '3':
             print("Atualizando Aluno")
-            matricula = int(input("Matricula do Aluno para atualizar: "))
-            nome = str(input("Nome do Aluno : ")).strip()
-            
-            AtualizarAluno(matricula, nome)
+            try:
+                matricula = int(input("Matricula do Aluno para atualizar: "))
+                nome = str(input("Nome do Aluno : ")).strip()
+            except ValueError:
+                print("Erro: Matricula deve ser um número inteiro válido.")
+            except Exception as e:
+                print(f"Erro inesperado: {e}")
+            else: 
+                AtualizarAluno(matricula, nome)
         case '4':
             print("Removendo Aluno")
-            matricula = int(input("Digite a Matricula do Aluno: "))
-            RemoverAluno(matricula)
+            try:
+                matricula = int(input("Digite a Matricula do Aluno: "))
+            except ValueError:
+                print("Erro: Matricula deve ser um número inteiro válido.")
+            except Exception as e:
+                print(f"Erro inesperado: {e}")
+            else: 
+                RemoverAluno(matricula)
         case '0':
           controle = False
         case _:

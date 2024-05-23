@@ -30,8 +30,4 @@ for nome in nomes:
 
 tree_view.pack()
 
-
-
-
-
 janela.mainloop()
